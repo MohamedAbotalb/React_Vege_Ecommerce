@@ -59,23 +59,27 @@ export function Footer() {
                 </li>
               </ul>
             </div>
-            <div className="col-lg-3">
-              <a href="#" className="fs-2 p-3">
-                <i className="bi bi-facebook"></i>
-              </a>
-              <a href="#" className="fs-2 p-3 text-info">
-                <i className="bi bi-twitter"></i>
-              </a>
-              <a href="#" className="fs-2 p-3 text-danger">
-                <i className="bi bi-instagram"></i>
-              </a>
-              <a href="#" className="fs-2 p-3 text-danger">
-                <i className="bi bi-pinterest"></i>
-              </a>
+            <div className="row justify-content-around align-items-center mt-5">
+              <div className="col-lg-6 text-center">
+                <p className="copyright fs-5">
+                  VegeFoods © {new Date().getFullYear()}
+                </p>
+              </div>
+              <div className="col-lg-6 text-center mt-1">
+                <a href="#" className="fs-2 p-3">
+                  <i className="bi bi-facebook"></i>
+                </a>
+                <a href="#" className="fs-2 p-3 text-info">
+                  <i className="bi bi-twitter"></i>
+                </a>
+                <a href="#" className="fs-2 p-3 text-danger">
+                  <i className="bi bi-instagram"></i>
+                </a>
+                <a href="#" className="fs-2 p-3 text-danger">
+                  <i className="bi bi-pinterest"></i>
+                </a>
+              </div>
             </div>
-            <p className="copyright text-center mt-5 fs-5">
-              VegeFoods © {new Date().getFullYear()}
-            </p>
           </div>
         </div>
       </footer>
