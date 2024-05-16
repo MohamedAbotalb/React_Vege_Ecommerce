@@ -7,7 +7,7 @@ export function Footer() {
     <div className="footer-clean bg-light">
       <footer>
         <div className="container">
-          <div className="row justify-content-center">
+          <div className="row justify-content-center ps-5">
             <div className="col-sm-4 col-md-3 item">
               <h3>Explore</h3>
               <ul>
@@ -59,26 +59,26 @@ export function Footer() {
                 </li>
               </ul>
             </div>
-            <div className="row justify-content-around align-items-center mt-5">
-              <div className="col-lg-6 text-center">
-                <p className="copyright fs-5">
-                  VegeFoods © {new Date().getFullYear()}
-                </p>
-              </div>
-              <div className="col-lg-6 text-center mt-1">
-                <a href="#" className="fs-2 p-3">
-                  <i className="bi bi-facebook"></i>
-                </a>
-                <a href="#" className="fs-2 p-3 text-info">
-                  <i className="bi bi-twitter"></i>
-                </a>
-                <a href="#" className="fs-2 p-3 text-danger">
-                  <i className="bi bi-instagram"></i>
-                </a>
-                <a href="#" className="fs-2 p-3 text-danger">
-                  <i className="bi bi-pinterest"></i>
-                </a>
-              </div>
+          </div>
+          <div className="row justify-content-between align-items-center mt-5">
+            <div className="col-lg-6 text-center">
+              <p className="copyright fs-5">
+                VegeFoods © {new Date().getFullYear()}
+              </p>
+            </div>
+            <div className="col-lg-6 text-center mt-1">
+              <a href="#" className="fs-2 p-3">
+                <i className="bi bi-facebook"></i>
+              </a>
+              <a href="#" className="fs-2 p-3 text-info">
+                <i className="bi bi-twitter"></i>
+              </a>
+              <a href="#" className="fs-2 p-3 text-danger">
+                <i className="bi bi-instagram"></i>
+              </a>
+              <a href="#" className="fs-2 p-3 text-danger">
+                <i className="bi bi-pinterest"></i>
+              </a>
             </div>
           </div>
         </div>
