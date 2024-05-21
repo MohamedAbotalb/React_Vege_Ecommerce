@@ -1,13 +1,16 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Button, Modal } from "react-bootstrap";
 import { FaRegTrashCan } from "react-icons/fa6";
+import { deleteProductById } from "../../../store/productsSlice";
 
-export function ProductDelete({ product, onDelete }) {
+export function ProductDelete({ product }) {
   const { id, name } = product;
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const dispatch = useDispatch();
 
   const handleDelete = () => {
-    onDelete(id);
+    dispatch(deleteProductById(id));
     setShowDeleteModal(false);
   };
 
@@ -21,7 +24,7 @@ export function ProductDelete({ product, onDelete }) {
         <FaRegTrashCan />
       </Button>
       <Modal
-        backdrop={"static"}
+        backdrop="static"
         show={showDeleteModal}
         onHide={() => setShowDeleteModal(false)}
       >

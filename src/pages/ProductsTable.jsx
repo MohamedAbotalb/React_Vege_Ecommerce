@@ -1,54 +1,45 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Table from "react-bootstrap/Table";
 import { ProductShow } from "../Components/Products/crud/ProductShow";
 import { ProductCreate } from "../Components/Products/crud/ProductCreate";
 import { ProductUpdate } from "../Components/Products/crud/ProductUpdate";
 import { ProductDelete } from "../Components/Products/crud/ProductDelete";
 import {
+  fetchProducts,
   addNewProduct,
-  deleteProductById,
   updateProductById,
-} from "../api/productApi";
-import { useLoaderData } from "react-router-dom";
+  deleteProductById,
+} from "../store/productsSlice";
+import { Loader } from "../Components/Loader";
 
 export function ProductsTable() {
-  const { data } = useLoaderData();
-  const [products, setProducts] = useState(data);
+  const dispatch = useDispatch();
+  const { products, loading, error } = useSelector((state) => state.products);
+  const [initialLoading, setInitialLoading] = useState(true);
 
-  const addProduct = async (newProduct) => {
-    try {
-      const id = `${+products[products.length - 1].id + 1}`;
-      newProduct = { ...newProduct, id };
-      await addNewProduct(newProduct);
-      setProducts([...products, newProduct]);
-    } catch (error) {
-      console.log(error);
-    }
+  useEffect(() => {
+    dispatch(fetchProducts()).then(() => {
+      setTimeout(() => {
+        setInitialLoading(false);
+      }, 1000);
+    });
+  }, [dispatch]);
+
+  const handleAddProduct = (newProduct) => {
+    dispatch(addNewProduct(newProduct));
   };
 
-  const deleteProduct = async (id) => {
-    try {
-      await deleteProductById(id);
-      const newProducts = products.filter((product) => product.id !== id);
-      setProducts([...newProducts]);
-    } catch (error) {
-      console.log(error);
-    }
+  const handleUpdateProduct = (id, updatedProduct) => {
+    dispatch(updateProductById({ id, updatedProduct }));
   };
 
-  const updateProduct = async (updatedProduct) => {
-    try {
-      const { id } = updatedProduct;
-      await updateProductById(updatedProduct, id);
-      setProducts((prevProducts) =>
-        prevProducts.map((product) =>
-          product.id === id ? updatedProduct : product
-        )
-      );
-    } catch (error) {
-      console.log(error);
-    }
+  const handleDeleteProduct = (id) => {
+    dispatch(deleteProductById(id));
   };
+
+  if (initialLoading || loading) return <Loader />;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <>
@@ -58,7 +49,7 @@ export function ProductsTable() {
             <h2 className="col-md-6">Products Table</h2>
 
             <div className="col-md-6 mb-4 text-end">
-              <ProductCreate addProduct={addProduct} />
+              <ProductCreate addProduct={handleAddProduct} />
             </div>
           </div>
           <Table striped hover className="text-center">
@@ -91,11 +82,11 @@ export function ProductsTable() {
                       <ProductShow product={product} />
                       <ProductUpdate
                         product={product}
-                        onUpdate={updateProduct}
+                        onUpdate={handleUpdateProduct}
                       />
                       <ProductDelete
                         product={product}
-                        onDelete={deleteProduct}
+                        onDelete={handleDeleteProduct}
                       />
                     </td>
                   </tr>

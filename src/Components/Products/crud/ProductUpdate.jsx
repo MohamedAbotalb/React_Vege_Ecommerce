@@ -3,7 +3,7 @@ import { Button, Modal, Form } from "react-bootstrap";
 import { FaPenToSquare } from "react-icons/fa6";
 
 export function ProductUpdate({ product, onUpdate }) {
-  const { name, price, hasDiscount } = product;
+  const { id, name, price, hasDiscount } = product;
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [updatedName, setUpdatedName] = useState(name);
   const [updatedPrice, setUpdatedPrice] = useState(price);
@@ -36,13 +36,13 @@ export function ProductUpdate({ product, onUpdate }) {
         price: updatedPrice,
         hasDiscount: updatedHasDiscount,
       };
-      onUpdate(updatedProduct);
+      onUpdate(id, updatedProduct);
       setShowUpdateModal(false);
-      handleClose();
     }
   };
 
   const handleClose = () => {
+    setShowUpdateModal(false);
     setNameError("");
     setPriceError("");
   };
@@ -56,11 +56,7 @@ export function ProductUpdate({ product, onUpdate }) {
       >
         <FaPenToSquare />
       </Button>
-      <Modal
-        backdrop={"static"}
-        show={showUpdateModal}
-        onHide={() => setShowUpdateModal(false)}
-      >
+      <Modal backdrop={"static"} show={showUpdateModal} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Update Product</Modal.Title>
         </Modal.Header>
@@ -103,7 +99,7 @@ export function ProductUpdate({ product, onUpdate }) {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowUpdateModal(false)}>
+          <Button variant="secondary" onClick={handleClose}>
             Cancel
           </Button>
           <Button variant="primary" onClick={handleUpdate}>

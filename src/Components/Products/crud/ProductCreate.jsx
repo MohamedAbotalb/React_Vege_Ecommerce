@@ -1,15 +1,16 @@
-import { useState } from "react";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import Modal from "react-bootstrap/Modal";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { Button, Form, Modal } from "react-bootstrap";
+import { addNewProduct } from "../../../store/productsSlice";
 
-export function ProductCreate({ addProduct }) {
+export function ProductCreate() {
   const [show, setShow] = useState(false);
   const [productName, setProductName] = useState("");
   const [productPrice, setProductPrice] = useState("");
   const [hasDiscount, setHasDiscount] = useState(false);
   const [nameError, setNameError] = useState("");
   const [priceError, setPriceError] = useState("");
+  const dispatch = useDispatch();
 
   const handleShow = () => setShow(true);
   const handleClose = () => {
@@ -21,9 +22,7 @@ export function ProductCreate({ addProduct }) {
     setHasDiscount(false);
   };
 
-  const randomImage = () => {
-    return Math.floor(Math.random() * 11) + 1;
-  };
+  const randomImage = () => Math.floor(Math.random() * 11) + 1;
 
   const validateForm = () => {
     let valid = true;
@@ -51,7 +50,7 @@ export function ProductCreate({ addProduct }) {
         imageUrl: `/assets/images/product-${value}.jpg`,
         hasDiscount: hasDiscount,
       };
-      addProduct(newProduct);
+      dispatch(addNewProduct(newProduct));
       handleClose();
     }
   };
@@ -62,7 +61,7 @@ export function ProductCreate({ addProduct }) {
         Add New Product
       </Button>
 
-      <Modal show={show} onHide={handleClose} backdrop={"static"}>
+      <Modal show={show} onHide={handleClose} backdrop="static">
         <Modal.Header closeButton>
           <Modal.Title>Add New Product</Modal.Title>
         </Modal.Header>

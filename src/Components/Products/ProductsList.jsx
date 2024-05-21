@@ -1,9 +1,25 @@
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Product } from "./Product";
-import { useLoaderData } from "react-router-dom";
+import { fetchProducts } from "../../store/productsSlice";
+import { Loader } from "../../Components/Loader";
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
 export function ProductsList() {
-  const { data: products } = useLoaderData();
+  const dispatch = useDispatch();
+  const { products, loading, error } = useSelector((state) => state.products);
+  const [initialLoading, setInitialLoading] = useState(true);
+
+  useEffect(() => {
+    dispatch(fetchProducts()).then(() => {
+      setTimeout(() => {
+        setInitialLoading(false);
+      }, 1000);
+    });
+  }, [dispatch]);
+
+  if (initialLoading || loading) return <Loader />;
+  if (error) return <div>Error: {error}</div>;
 
   return (
     <>
