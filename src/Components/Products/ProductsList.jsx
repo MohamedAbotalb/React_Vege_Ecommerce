@@ -1,29 +1,9 @@
-import { useState } from "react";
 import { Product } from "./Product";
-import { ProductCreate } from "./crud/ProductCreate";
-import { products as initialProducts } from "../../data/products";
+import { useLoaderData } from "react-router-dom";
 
 /* eslint-disable jsx-a11y/anchor-is-valid */
 export function ProductsList() {
-  const [products, setProducts] = useState(initialProducts);
-
-  const addProduct = (newProduct) => {
-    const id = products.length + 1;
-    newProduct = { ...newProduct, id };
-    setProducts([...products, newProduct]);
-  };
-
-  const deleteProduct = (productId) => {
-    setProducts(products.filter((product) => product.id !== productId));
-  };
-
-  const updateProduct = (updatedProduct) => {
-    setProducts(
-      products.map((product) =>
-        product.id === updatedProduct.id ? updatedProduct : product
-      )
-    );
-  };
+  const { data: products } = useLoaderData();
 
   return (
     <>
@@ -38,18 +18,10 @@ export function ProductsList() {
                 Vokalia and Consonantia
               </p>
             </div>
-            <div className="col-md-6 mb-4 text-center">
-              <ProductCreate addProduct={addProduct} />
-            </div>
           </div>
           <div className="row my-5">
             {products.map((product) => (
-              <Product
-                key={product.id}
-                product={product}
-                onUpdate={updateProduct}
-                onDelete={deleteProduct}
-              />
+              <Product key={product.id} product={product} />
             ))}
           </div>
         </div>
