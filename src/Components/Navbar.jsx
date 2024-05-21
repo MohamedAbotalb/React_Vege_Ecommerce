@@ -2,7 +2,7 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
+import { NavLink } from "react-router-dom";
 
 export function MyNavbar() {
   return (
@@ -36,43 +36,74 @@ export function MyNavbar() {
       </div>
       <Navbar expand="lg" className="bg-body-tertiary" sticky="top">
         <Container>
-          <Navbar.Brand className="hover-text-success fw-bold" href="#home">
+          <Navbar.Brand className="hover-text-success fw-bold" href="/">
             VegeFoods
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
-              <Nav.Link className="mx-3" href="#home">
-                Home
-              </Nav.Link>
-              <NavDropdown
-                className="mx-3"
-                title="Shop"
-                id="basic-nav-dropdown"
+              <NavLink
+                className={({ isActive }) => {
+                  return isActive
+                    ? "bg-success nav-link mx-3 text-white"
+                    : "nav-link mx-3";
+                }}
+                to="/"
               >
-                <NavDropdown.Item className="my-2" href="#action/3.1">
-                  Shop
-                </NavDropdown.Item>
-                <NavDropdown.Item className="my-2" href="#action/3.2">
-                  Wishlist
-                </NavDropdown.Item>
-                <NavDropdown.Item className="my-2" href="#action/3.3">
-                  Single Product
-                </NavDropdown.Item>
-              </NavDropdown>
-              <Nav.Link className="mx-3" href="#about">
+                Home
+              </NavLink>
+              <NavLink
+                className={({ isActive }) => {
+                  return isActive
+                    ? "bg-success nav-link mx-3 text-white"
+                    : "nav-link mx-3";
+                }}
+                to="/shop"
+              >
+                Shop
+              </NavLink>
+
+              <NavLink
+                className={({ isActive }) => {
+                  return isActive
+                    ? "bg-success nav-link mx-3 text-white"
+                    : "nav-link mx-3";
+                }}
+                to="/products"
+              >
+                Products
+              </NavLink>
+              <NavLink
+                className={({ isActive }) => {
+                  return isActive
+                    ? "bg-success nav-link mx-3 text-white"
+                    : "nav-link mx-3";
+                }}
+                to="/about"
+              >
                 About
-              </Nav.Link>
-              <Nav.Link className="mx-3" href="#blog">
-                Blog
-              </Nav.Link>
-              <Nav.Link className="mx-3" href="#contact">
+              </NavLink>
+              <NavLink
+                className={({ isActive }) => {
+                  return isActive
+                    ? "bg-success nav-link mx-3 text-white"
+                    : "nav-link mx-3";
+                }}
+                to="/contact"
+              >
                 Contact
-              </Nav.Link>
-              <Nav.Link className="mx-3" href="#cart">
+              </NavLink>
+              <NavLink
+                className={({ isActive }) => {
+                  return isActive
+                    ? "bg-success nav-link mx-3 text-white"
+                    : "nav-link mx-3";
+                }}
+                to="/cart"
+              >
                 <i className="bi bi-basket-fill"></i>
                 [0]
-              </Nav.Link>
+              </NavLink>
             </Nav>
           </Navbar.Collapse>
         </Container>
