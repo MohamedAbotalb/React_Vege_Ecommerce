@@ -13,6 +13,7 @@ import { ProductDetails } from "./pages/ProductDetails";
 import { NotFound } from "./pages/NotFound";
 import { getAllProducts } from "./api/productApi";
 import { ProductsTable } from "./pages/ProductsTable";
+import { Cart } from "./pages/Cart";
 
 function App() {
   const router = createBrowserRouter(
@@ -28,6 +29,7 @@ function App() {
             loader={getAllProducts}
             element={<ProductsTable />}
           />
+          <Route path="cart" element={<Cart />} />
           <Route path="contact" element={<Contact />} />
         </Route>
         <Route path="*" element={<NotFound />} />
