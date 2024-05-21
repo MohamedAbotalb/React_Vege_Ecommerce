@@ -19,14 +19,12 @@ export function Product({ product }) {
   return (
     <div className="col-md-6 col-lg-3 my-2">
       <Card className="h-100 border-1 border-light-subtle">
-        <Link to={`/shop/${id}`}>
-          <Card.Img
-            variant="top"
-            src={imageUrl}
-            alt={name}
-            className="product-image"
-          />
-        </Link>
+        <Card.Img
+          variant="top"
+          src={imageUrl}
+          alt={name}
+          className="product-image"
+        />
 
         <Card.Body className="d-flex flex-column text-center">
           <Card.Title>{name}</Card.Title>
@@ -43,9 +41,11 @@ export function Product({ product }) {
             )}
           </Card.Text>
           <div>
-            <Button variant="outline-success" className="mx-2">
-              Add to cart
-            </Button>
+            <Link to={`/shop/${id}`}>
+              <Button variant="outline-success" className="mx-2">
+                Read more
+              </Button>
+            </Link>
           </div>
         </Card.Body>
       </Card>
