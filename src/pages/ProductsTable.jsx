@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Table from "react-bootstrap/Table";
+import { Table } from "react-bootstrap";
 import { ProductShow } from "../Components/Products/crud/ProductShow";
 import { ProductCreate } from "../Components/Products/crud/ProductCreate";
 import { ProductUpdate } from "../Components/Products/crud/ProductUpdate";
@@ -12,11 +12,16 @@ import {
   deleteProductById,
 } from "../store/productsSlice";
 import { Loader } from "../Components/Loader";
+import { PaginationComponent } from "../Components/Pagination";
 
 export function ProductsTable() {
   const dispatch = useDispatch();
   const { products, loading, error } = useSelector((state) => state.products);
   const [initialLoading, setInitialLoading] = useState(true);
+
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
   useEffect(() => {
     dispatch(fetchProducts()).then(() => {
@@ -37,6 +42,16 @@ export function ProductsTable() {
   const handleDeleteProduct = (id) => {
     dispatch(deleteProductById(id));
   };
+
+  // Calculate pagination
+  const indexOfLastProduct = currentPage * itemsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - itemsPerPage;
+  const currentProducts = products.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   if (initialLoading || loading) return <Loader />;
   if (error) return <div>Error: {error}</div>;
@@ -64,10 +79,10 @@ export function ProductsTable() {
               </tr>
             </thead>
             <tbody>
-              {products.map((product) => {
+              {currentProducts.map((product, index) => {
                 return (
                   <tr key={product.id}>
-                    <td>{product.id}</td>
+                    <td>{indexOfFirstProduct + index + 1}</td>
                     <td>{product.name}</td>
                     <td>
                       <img
@@ -94,6 +109,12 @@ export function ProductsTable() {
               })}
             </tbody>
           </Table>
+          <PaginationComponent
+            totalItems={products.length}
+            itemsPerPage={itemsPerPage}
+            currentPage={currentPage}
+            paginate={paginate}
+          />
         </div>
       </section>
     </>
