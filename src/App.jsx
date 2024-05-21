@@ -12,7 +12,7 @@ import { SharedLayout } from "./Layouts/SharedLayout";
 import { ProductDetails } from "./pages/ProductDetails";
 import { NotFound } from "./pages/NotFound";
 import { getAllProducts } from "./api/productApi";
-import { ProductsTable } from "./Components/Products/ProductsTable";
+import { ProductsTable } from "./pages/ProductsTable";
 
 function App() {
   const router = createBrowserRouter(

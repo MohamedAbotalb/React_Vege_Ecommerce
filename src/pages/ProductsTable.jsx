@@ -1,14 +1,14 @@
 import { useState } from "react";
 import Table from "react-bootstrap/Table";
-import { ProductShow } from "./crud/ProductShow";
-import { ProductCreate } from "./crud/ProductCreate";
-import { ProductUpdate } from "./crud/ProductUpdate";
-import { ProductDelete } from "./crud/ProductDelete";
+import { ProductShow } from "../Components/Products/crud/ProductShow";
+import { ProductCreate } from "../Components/Products/crud/ProductCreate";
+import { ProductUpdate } from "../Components/Products/crud/ProductUpdate";
+import { ProductDelete } from "../Components/Products/crud/ProductDelete";
 import {
   addNewProduct,
   deleteProductById,
   updateProductById,
-} from "../../api/productApi";
+} from "../api/productApi";
 import { useLoaderData } from "react-router-dom";
 
 export function ProductsTable() {
