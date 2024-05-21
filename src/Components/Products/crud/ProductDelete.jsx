@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
+import { FaRegTrashCan } from "react-icons/fa6";
 
 export function ProductDelete({ product, onDelete }) {
   const { id, name } = product;
@@ -17,7 +18,7 @@ export function ProductDelete({ product, onDelete }) {
         className="mx-2"
         onClick={() => setShowDeleteModal(true)}
       >
-        <i className="bi bi-trash-fill"></i>
+        <FaRegTrashCan />
       </Button>
       <Modal
         backdrop={"static"}

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
+import { FaPenToSquare } from "react-icons/fa6";
 
 export function ProductUpdate({ product, onUpdate }) {
   const { name, price, hasDiscount } = product;
@@ -53,7 +54,7 @@ export function ProductUpdate({ product, onUpdate }) {
         className="mx-2"
         onClick={() => setShowUpdateModal(true)}
       >
-        <i class="bi bi-pencil-square"></i>
+        <FaPenToSquare />
       </Button>
       <Modal
         backdrop={"static"}

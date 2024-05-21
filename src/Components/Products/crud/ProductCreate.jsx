@@ -62,7 +62,7 @@ export function ProductCreate({ addProduct }) {
         Add New Product
       </Button>
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} backdrop={"static"}>
         <Modal.Header closeButton>
           <Modal.Title>Add New Product</Modal.Title>
         </Modal.Header>
