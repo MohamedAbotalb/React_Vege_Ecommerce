@@ -1,10 +1,20 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { NavLink } from "react-router-dom";
+import { fetchCart } from "../store/cartSlice";
 
 export function MyNavbar() {
+  const dispatch = useDispatch();
+  const { items } = useSelector((state) => state.cart);
+
+  useEffect(() => {
+    dispatch(fetchCart());
+  }, [dispatch]);
+
   return (
     <>
       <div className="py-1 bg-success text-white">
@@ -101,8 +111,7 @@ export function MyNavbar() {
                 }}
                 to="/cart"
               >
-                <i className="bi bi-basket-fill"></i>
-                [0]
+                <i className="bi bi-basket-fill"></i>[{items.length}]
               </NavLink>
             </Nav>
           </Navbar.Collapse>
