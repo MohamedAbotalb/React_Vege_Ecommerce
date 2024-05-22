@@ -1,58 +1,26 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Button, Form, Modal } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import { addNewProduct } from "../../../store/productsSlice";
+import ProductForm from "./ProductForm";
 
 export function ProductCreate() {
   const [show, setShow] = useState(false);
-  const [productName, setProductName] = useState("");
-  const [productPrice, setProductPrice] = useState("");
-  const [hasDiscount, setHasDiscount] = useState(false);
-  const [nameError, setNameError] = useState("");
-  const [priceError, setPriceError] = useState("");
   const dispatch = useDispatch();
 
   const handleShow = () => setShow(true);
-  const handleClose = () => {
-    setShow(false);
-    setProductName("");
-    setProductPrice("");
-    setNameError("");
-    setPriceError("");
-    setHasDiscount(false);
-  };
+  const handleClose = () => setShow(false);
 
   const randomImage = () => Math.floor(Math.random() * 11) + 1;
 
-  const validateForm = () => {
-    let valid = true;
-    if (productName.length <= 2) {
-      setNameError("Product name must be more than 2 characters.");
-      valid = false;
-    } else {
-      setNameError("");
-    }
-    if (!productPrice || productPrice <= 10) {
-      setPriceError("Product price must be more than $10.");
-      valid = false;
-    } else {
-      setPriceError("");
-    }
-    return valid;
-  };
-
-  const handleSubmit = () => {
-    if (validateForm()) {
-      const value = randomImage();
-      const newProduct = {
-        name: productName,
-        price: productPrice,
-        imageUrl: `/assets/images/product-${value}.jpg`,
-        hasDiscount: hasDiscount,
-      };
-      dispatch(addNewProduct(newProduct));
-      handleClose();
-    }
+  const handleSubmit = (newProduct) => {
+    const value = randomImage();
+    const productToAdd = {
+      ...newProduct,
+      imageUrl: `/assets/images/product-${value}.jpg`,
+    };
+    dispatch(addNewProduct(productToAdd));
+    handleClose();
   };
 
   return (
@@ -66,52 +34,12 @@ export function ProductCreate() {
           <Modal.Title>Add New Product</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
-            <Form.Group className="mb-3" controlId="productName">
-              <Form.Label>Product Name</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter product name"
-                value={productName}
-                onChange={(e) => setProductName(e.target.value)}
-                isInvalid={!!nameError}
-              />
-              <Form.Control.Feedback type="invalid">
-                {nameError}
-              </Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="productPrice">
-              <Form.Label>Product Price</Form.Label>
-              <Form.Control
-                type="number"
-                placeholder="Enter product price"
-                min={10}
-                value={productPrice}
-                onChange={(e) => setProductPrice(e.target.value)}
-                isInvalid={!!priceError}
-              />
-              <Form.Control.Feedback type="invalid">
-                {priceError}
-              </Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="hasDiscount">
-              <Form.Check
-                type="checkbox"
-                label="Has Discount"
-                checked={hasDiscount}
-                onChange={(e) => setHasDiscount(e.target.checked)}
-              />
-            </Form.Group>
-          </Form>
+          <ProductForm
+            initialProduct={{}}
+            onSubmit={handleSubmit}
+            onClose={handleClose}
+          />
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleSubmit}>
-            Save
-          </Button>
-        </Modal.Footer>
       </Modal>
     </>
   );
